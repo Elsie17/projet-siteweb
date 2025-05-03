@@ -1,0 +1,62 @@
+<!-- Panier -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloomy Mama-Panier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- En-tête du site -->
+<header>
+    <div class="navbar">
+        <h1 class="logo">Bloomy Mama</h1>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="panier.html">Panier</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </div>
+</header>
+<section>
+    <h2>Votre panier</h2>
+    <div id="panier-container"></div>
+    <p id="total"></p>
+</section>
+
+<script>
+    const panier = JSON.parse(localStorage.getItem('panier')) || [];
+    const container = document.getElementById('panier-container');
+    const totalElem = document.getElementById('total');
+
+    if (panier.length === 0) {
+        container.innerHTML = "<p>Votre panier est vide.</p>";
+    } else {
+        let total = 0;
+        panier.forEach(item => {
+            const produit = document.createElement('p');
+            produit.textContent = '${item.nom} - ${item.prix} MAD';
+            container.appendChild(produit);
+            total += item.prix;
+        });
+        totalElem.textContent = 'Total : ${total} MAD';
+    }
+</script>
+
+<footer>
+    <p>&copy; 2025 Bloomy Mama</p>
+</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
