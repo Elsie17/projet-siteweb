@@ -1,6 +1,6 @@
 <!-- Panier -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,10 +27,12 @@
         </nav>
     </div>
 </header>
+<!-- section panier -->
 <section>
     <h2>Votre panier</h2>
     <div id="panier-container"></div>
     <p id="total"></p>
+    <button id="vider-panier" style="display: none;">Vider le panier</button>
 </section>
 
 <script>
@@ -44,11 +46,11 @@
         let total = 0;
         panier.forEach(item => {
             const produit = document.createElement('p');
-            produit.textContent = '${item.nom} - ${item.prix} MAD';
+            produit.textContent = `${item.nom} - ${item.prix} MAD`;
             container.appendChild(produit);
-            total += item.prix;
+            total += Number(item.prix);
         });
-        totalElem.textContent = 'Total : ${total} MAD';
+        totalElem.textContent = `Total : ${total} MAD`;
     }
 </script>
 
