@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloomy Mama-Panier</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <!-- En-tête du site -->
@@ -16,8 +17,12 @@
             <ul class="nav-links">
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="boutique.html">Boutique</a></li>
-                <li><a href="panier.html">Panier</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="panier.html">
+                    <i class="fa-solid fa-cart-shopping"></i>Panier
+                    <span id="cart-count">(0)</span>
+                </a>
+            </li>
+            <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -28,12 +33,15 @@
     </div>
 </header>
 <!-- section panier -->
-<section>
+<main>
     <h2>Votre panier</h2>
     <div id="panier-container"></div>
     <p id="total"></p>
-    <button id="vider-panier" style="display: none;">Vider le panier</button>
-</section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Bloomy Mama</p>
+</footer>
 
 <script>
     const panier = JSON.parse(localStorage.getItem('panier')) || [];
@@ -52,12 +60,53 @@
         });
         totalElem.textContent = `Total : ${total} MAD`;
     }
+
+    function updatePanier() {
+        container.innerHTML = "";
+        let total = 0;
+
+        panier.forEach((item, index) => {
+            const produitDiv = document.createElement('div');
+            produitDiv.classList.add('panier-item');
+
+            produitDiv.innerHTML = `
+                <img src="${item.image}" alt="${item.nom}" class="panier-image">
+                <span class="panier-nom">${item.nom}</span>
+                <span class="panier-prix">${item.prix} MAD</span>
+                <button class="decrease" data-index="${index}">-</button>
+                <span class="panier-quantite">${item.quantité}</span>
+                <button class="increase" data-index="${index}">+</button>
+                <button class="remove" data-index="${index}">Supprimer</button>
+        `;
+
+        container.appendChild(produitDiv);
+        total += item.prix * item.quantité;
+    });
+
+    totalElem.textContent = `Total : ${total} MAD`;
+    localStorage.setItem('panier', JSON.stringify(panier));
+}
+
+container.addEventListener('click', (e) => {
+    const index = e.target.dataset.index;
+    if (e.target.classList.contains('increase')) {
+        panier[index].quantité++;
+    } else if (e.target.classList.contains('decrease')) {
+        if (panier[index].quantité > 1) {
+            panier[index].quantité--;
+        }
+    } else if (e.target.classList.contains('remove')) {
+        panier.splice(index, 1);
+    }
+    updatePanier();
+});
+
+if (panier.length === 0) {
+    container.innerHTML = "<p>Votre panier est vide.</p>";
+} else {
+    updatePanier();
+}
 </script>
-
-<footer>
-    <p>&copy; 2025 Bloomy Mama</p>
-</footer>
-
     <script src="script.js"></script>
 </body>
 </html>

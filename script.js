@@ -7,31 +7,23 @@ hamburger.addEventListener('click', () => {
 });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const boutonsAjouter = document.querySelectorAll('.add-to-cart');
+const boutonsAjouter = document.querySelectorAll('.add-to-cart');
+const panier = JSON.parse(localStorage.getItem('panier')) || [];
 
-    boutonsAjouter.forEach(function(bouton) {
-        bouton.addEventListener('click', function() {
-            const nom = bouton.getAttribute('data-nom');
-            const prix = parseFloat(bouton.getAttribute('data-prix'));
+boutonsAjouter.forEach(bouton => {
+    bouton.addEventListener('click', () => {
+        const nom = bouton.dataset.nom;
+        const prix = Number(bouton.dataset.prix);
+        const image = bouton.closest('.product-card').querySelector('img').src;
 
-            // Récupérer le panier actuel depuis localStorage
-            let panier = JSON.parse(localStorage.getItem('panier')) || [];
+        const exist = panier.find(p => p.nom === nom);
+        if (exist) {
+            exist.quantité++;
+        } else {
+            panier.push({ nom, prix, image, quantité: 1 });
+        }
 
-            // Vérifier si l’article existe déjà
-            const index = panier.findIndex(item => item.nom === nom);
-            if (index !== -1) {
-                // Si l’article existe, augmenter la quantité
-                panier[index].quantite += 1;
-            } else {
-                // Sinon, ajouter l’article avec quantité = 1
-                panier.push({ nom: nom, prix: prix, quantite: 1 });
-            }
-
-            // Sauvegarder le panier dans localStorage
-            localStorage.setItem('panier', JSON.stringify(panier));
-
-            alert( '${nom} a été ajouté au panier !');
-        });
+        localStorage.setItem('panier', JSON.stringify(panier));
+        alert(`${nom} ajouté au panier !`);
     });
 });

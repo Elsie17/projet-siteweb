@@ -5,71 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloomy Mama - Accueil</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
+<body class="accueil">
+    <!-- En-tête du site (toujours au-dessus de l’image de fond) -->
+    <header>
+        <div class="navbar">
+            <h1 class="logo">Bloomy Mama</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="boutique.html">Boutique</a></li>
+                    <li><a href="panier.html">
+                        <i class="fa-solid fa-cart-shopping"></i> Panier
+                        <span id="cart-count">(0)</span>
+                    </a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-<!-- En-tête du site -->
-<header>
-    <div class="navbar">
-        <h1 class="logo">Bloomy Mama</h1>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="boutique.html">Boutique</a></li>
-                <li><a href="panier.html">Panier</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </div>
-</header>
+    <!-- Section principale avec l’image de fond -->
+    <section class="hero">
+        <div class="hero-text">
+            <h2>Des produits doux, pensés pour les futures mamans</h2>
+            <p>Confort, sécurité et amour pour vous accompagner pendant la grossesse.</p>
+            <a href="boutique.html" class="btn">Découvrir la boutique</a>
+        </div>
+    </section>
 
-<!-- Section principale de bienvenue -->
-<section class="hero">
-    <div class="hero-text">
-        <h2>Des produits doux, pensés pour les futures mamans</h2>
-        <p>Confort, sécurité et amour pour vous accompagner pendant la grossesse.</p>
-        <a href="boutique.html" class="btn">Découvrir la boutique</a>
-    </div>
-</section>
+    <!-- Présentation de Bloomy Mama -->
+    <section class="presentation">
+        <div class="container">
+            <h2>Pourquoi Bloomy Mama ?</h2>
+            <p>Bloomy Mama est une boutique en ligne dédiée aux femmes enceintes. Nous proposons une sélection de produits utiles, confortables et jolis, pour vivre une grossesse épanouie.</p>
+        </div>
+    </section>
 
-<!-- Présentation de Bloomy Mama -->
-<section class="presentation">
-    <div class="container">
-        <h2>Pourquoi Bloomy Mama ?</h2>
-        <p>Bloomy Mama est une boutique en ligne dédiée aux femmes enceintes. Nous proposons une sélection de produits utiles, confortables et jolis, pour vivre une grossesse épanouie.</p>
-    </div>
-</section>
-
-<!-- Avantages -->
-<section class="avantages">
-    <div class="container">
-        <h2>Nos engagements</h2>
-        <div class="avantage-list">
-            <div class="avantage">
-                <h3>Produits testés</h3>
-                <p>Sélection rigoureuse et bien-être garantis.</p>
-            </div>
-            <div class="avantage">
-                <h3>Livraison rapide</h3>
-                <p>Partout au Maroc, en quelques jours seulement.</p>
-            </div>
-            <div class="avantage">
-                <h3>Confort & qualité</h3>
-                <p>Des matières douces et adaptées à la grossesse.</p>
+    <!-- Avantages -->
+    <section class="avantages">
+        <div class="container">
+            <h2>Nos engagements</h2>
+            <div class="avantage-list">
+                <div class="avantage">
+                    <h3>Produits testés</h3>
+                    <p>Sélection rigoureuse et bien-être garantis.</p>
+                </div>
+                <div class="avantage">
+                    <h3>Livraison rapide</h3>
+                    <p>Partout au Maroc, en quelques jours seulement.</p>
+                </div>
+                <div class="avantage">
+                    <h3>Confort & qualité</h3>
+                    <p>Des matières douces et adaptées à la grossesse.</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Pied de page -->
-<footer>
-    <p>&copy; 2025 Bloomy Mama - Tous droits réservés</p>
-</footer>
-<script src="script.js"></script>
+    <!-- Pied de page -->
+    <footer>
+        <p>&copy; 2025 Bloomy Mama - Tous droits réservés</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
