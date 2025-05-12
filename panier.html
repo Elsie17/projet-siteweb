@@ -32,11 +32,16 @@
         </nav>
     </div>
 </header>
+
 <!-- section panier -->
 <main>
+
     <h2>Votre panier</h2>
+
     <div id="panier-container"></div>
+
     <p id="total"></p>
+
 </main>
 
 <footer>
@@ -44,68 +49,72 @@
 </footer>
 
 <script>
-    const panier = JSON.parse(localStorage.getItem('panier')) || [];
+    function estImageValide (url, callback) { 
+    const img = new Image ();
+    img.onload = () => callback (true);
+    img.onerror = () => callback (false);
+    img.src = url;
+}
+    // On récupère le panier depuis le localStorage 
+    let panier = JSON.parse(localStorage.getItem('panier')) || [];
+
     const container = document.getElementById('panier-container');
     const totalElem = document.getElementById('total');
 
-    if (panier.length === 0) {
-        container.innerHTML = "<p>Votre panier est vide.</p>";
-    } else {
-        let total = 0;
-        panier.forEach(item => {
-            const produit = document.createElement('p');
-            produit.textContent = `${item.nom} - ${item.prix} MAD`;
-            container.appendChild(produit);
-            total += Number(item.prix);
-        });
-        totalElem.textContent = `Total : ${total} MAD`;
-    }
-
+    // Fonction pour afficher les produits du panier
     function updatePanier() {
         container.innerHTML = "";
         let total = 0;
+
+        if (panier.length === 0) {
+            container.innerHTML = "<p>Votre panier est vide.</p>";
+            totalElem.textContent = "Total : 0 MAD";
+            return;
+        }
 
         panier.forEach((item, index) => {
             const produitDiv = document.createElement('div');
             produitDiv.classList.add('panier-item');
 
             produitDiv.innerHTML = `
-                <img src="${item.image}" alt="${item.nom}" class="panier-image">
+                <img src="${item.image}" alt="${item.nom}" class="panier-image" style="width: 100px; height: auto;">
                 <span class="panier-nom">${item.nom}</span>
                 <span class="panier-prix">${item.prix} MAD</span>
                 <button class="decrease" data-index="${index}">-</button>
                 <span class="panier-quantite">${item.quantité}</span>
                 <button class="increase" data-index="${index}">+</button>
                 <button class="remove" data-index="${index}">Supprimer</button>
-        `;
+            `;
 
-        container.appendChild(produitDiv);
-        total += item.prix * item.quantité;
+            container.appendChild(produitDiv);
+            total += item.prix * item.quantité;
+        });
+
+        totalElem.textContent = `Total : ${total} MAD`;
+        localStorage.setItem('panier', JSON.stringify(panier));
+    }
+
+    // Gestion des clics sur +, -, supprimer
+    container.addEventListener('click', (e) => {
+        const index = e.target.dataset.index;
+        if (!index) return;
+
+        if (e.target.classList.contains('increase')) {
+            panier[index].quantité++;
+        } else if (e.target.classList.contains('decrease')) {
+            if (panier[index].quantité > 1) {
+                panier[index].quantité--;
+            }
+        } else if (e.target.classList.contains('remove')) {
+            panier.splice(index, 1);
+        }
+
+        updatePanier();
     });
 
-    totalElem.textContent = `Total : ${total} MAD`;
-    localStorage.setItem('panier', JSON.stringify(panier));
-}
-
-container.addEventListener('click', (e) => {
-    const index = e.target.dataset.index;
-    if (e.target.classList.contains('increase')) {
-        panier[index].quantité++;
-    } else if (e.target.classList.contains('decrease')) {
-        if (panier[index].quantité > 1) {
-            panier[index].quantité--;
-        }
-    } else if (e.target.classList.contains('remove')) {
-        panier.splice(index, 1);
-    }
+    // Chargement initial
     updatePanier();
-});
 
-if (panier.length === 0) {
-    container.innerHTML = "<p>Votre panier est vide.</p>";
-} else {
-    updatePanier();
-}
 </script>
     <script src="script.js"></script>
 </body>
