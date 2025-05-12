@@ -365,6 +365,38 @@ footer {
     border-radius: 8px;
 }
 
+/* Alerte pour le formulaire de contact */
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50; /* vert doux */
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+    font-size: 0.95rem;
+}
+.notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+.confirmation-message {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.confirmation-message.show {
+    display: block;
+    opacity: 1;
+}
+
+
 /* Style de l'alerte "Ajout au panier" */
 .confirmation-message {
     background-color: #d4edda; /* Vert doux */
@@ -484,23 +516,5 @@ footer {
     font-size: 0.9em;
 }
 
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #4CAF50; /* vert doux */
-    color: white;
-    padding: 12px 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    z-index: 1000;
-    font-size: 0.95rem;
-}
-.notification.show {
-    opacity: 1;
-    transform: translateY(0);
-}
+
 /* Responsive design */
